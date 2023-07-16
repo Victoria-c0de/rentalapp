@@ -4,14 +4,14 @@ import {useParams,useNavigate} from "react-router-dom";
 
 function ActualizarCliente(){
     const {id} = useParams();
+    //crear una instancia de la función de navegación 
+    const navigate = useNavigate();
     const [cliente_id,setClienteID] = useState("");
     const [nombre,setNombre] = useState("");
     const [apellido,setApellido] = useState("");
     const [email,setEmail] = useState("");
     const [telefono,setTelefono] = useState("");
-    const navigate = useNavigate("");
 
-   
     const obtenerDatosCliente = async () => {
         const response = await axios.get(`http://localhost:3000/api/cliente'${id}`);
         const cliente = response.data[0];

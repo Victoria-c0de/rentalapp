@@ -10,6 +10,8 @@ function CrearCliente(){
     const [telefono,setTelefono] = useState("");
     const navigate = useNavigate();
 
+    //enviar los datos de un formulario 
+    //configuracion de fecha
     const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -22,7 +24,7 @@ function CrearCliente(){
             telefono,
             fecha_registro
         });
-        //navigate("/clientes");
+        alert("Se ha creado el cliente correctamente");
     }catch(error) {
         console.log(error);
     }

@@ -29,7 +29,7 @@ function ListaClientes(){
               </thead>
               <tbody>
                   {cliente.map((cliente) => (
-                      <tr>
+                      <tr key={cliente.id}>
                           <td>{cliente.id}</td>
                           <td>{cliente.nombre}</td>
                           <td>{cliente.apellido}</td>
