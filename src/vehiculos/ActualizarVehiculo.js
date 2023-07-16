@@ -10,6 +10,7 @@ function ActualizarVehiculo(){
     const[modelo, setModelo] = useState("");
     const[anio, setAnio] = useState("");
     const[precio_por_dia, setPrecio] = useState("");
+    const [disponibilidad, setDisponibilidad] = useState("");
     const [imagenVehiculo, setImagenVehiculo] = useState(null);
 
     const obtenerDatosVehiculo = async () => {
@@ -21,6 +22,7 @@ function ActualizarVehiculo(){
             setModelo(vehiculo.modelo);
             setAnio(vehiculo.anio);
             setPrecio(vehiculo.precio_por_dia);
+            setDisponibilidad(vehiculo.disponibilidad);
             setImagenVehiculo(vehiculo.imagenVehiculo);
         } catch (error) {
             console.log(error);
@@ -34,8 +36,8 @@ function ActualizarVehiculo(){
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const vehiculoActualizado = { marca, modelo, anio, precio_por_dia };
-            await axios.patch(`http://localhost:3000/api/vehiculo/${id}`, vehiculoActualizado);
+            const vehiculoActualizado = { marca, modelo, anio, precio_por_dia, disponibilidad};
+            await axios.put(`http://localhost:3000/api/vehiculo/${id}`, vehiculoActualizado);
             navigate("/vehiculos");
         }catch(error) {
             console.log(error);
@@ -48,7 +50,7 @@ function ActualizarVehiculo(){
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>ID</label>
-                    <input type="text" className="form-control" value={vehiculo_id} onChange={(e) => setVehiculoID(e.target.value)} disabled ></input>
+                    <input type="number" className="form-control" value={vehiculo_id} onChange={(e) => setVehiculoID(e.target.value)} disabled ></input>
                 </div>
                 <div className="form-group">
                     <label>MARCA</label>
@@ -64,8 +66,16 @@ function ActualizarVehiculo(){
                 </div>
                 <div className="form-group">
                     <label>PRECIO </label>
-                    <input type="text" className="form-control" value={precio_por_dia} onChange={(e) =>setPrecio(e.target.value)}></input>
+                    <input type="number" step="0.01" className="form-control" value={precio_por_dia} onChange={(e) =>setPrecio(e.target.value)}></input>
                 </div>
+                <div className="mb-3">
+                <label htmlFor="disponibilidad" className="form-label"> DISPONIBILIDAD</label>
+                <select className="form-select" id="disponibilidad"value={disponibilidad} onChange={(e) => setDisponibilidad(e.target.value)} >
+                  <option value="disponible">Disponible</option>
+                  <option value="en uso">En uso</option>
+                  <option value="en mantenimiento">En mantenimiento</option>
+                </select>
+              </div>
                 <div className="form-group">
                     <label>Imagen</label>
                     <input type="file" className="form-control" onChange={(e) => setImagenVehiculo(e.target.files[0])}></input>
@@ -73,23 +83,19 @@ function ActualizarVehiculo(){
                 <button type="submit" className="btn btn-primary">Actualizar Vehiculo</button>
             </form>
             <br></br>
-            <div className="card mb-3" style={{maxWidth: "540px"}}>
-                <div className="row g-0">
-                    <div className="col-md-4">
-                    {imagenVehiculo && (
-              <img
-                src={imagenVehiculo}
-                className="img-fluid rounded-start"
-                alt="vehiculo"
-              />
-            )}
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">
-                {marca} {modelo}
-              </h5>
-              <p className="card-text">Año: {anio}</p>
+            <div className="card mb-3" style={{ maxWidth: "540px" }}>
+            <div className="row g-0">
+              <div className="col-md-4">
+                {imagenVehiculo && ( <img src={imagenVehiculo} className="img-fluid rounded-start" alt="vehiculo" />)}
+              </div>
+              <div className="col-md-8">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">{marca} {modelo}</h5>
+                    <p className="card-text">Año: {anio}</p>
+                    <p className="card-text">Precio por día: {precio_por_dia}</p>
+                    <p className="card-text">Disponibilidad: {disponibilidad}</p>
+                  </div>
             </div>
           </div>
         </div>

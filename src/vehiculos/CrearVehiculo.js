@@ -7,6 +7,7 @@ function CrearVehiculo(){
     const [modelo, setModelo] = useState("");
     const [anio, setAnio] = useState("");
     const [precio_por_dia, setPrecio] = useState("");
+    const [disponibilidad, setDisponibilidad] = useState("");
     const [imagenVehiculo, setImagenVehiculo] = useState(null);
 
     useEffect(() => {
@@ -32,7 +33,8 @@ function CrearVehiculo(){
                 marca,
                 modelo,
                 anio,
-                precio_por_dia
+                precio_por_dia,
+                disponibilidad
             });
             alert("Se ha creado el vehículo correctamente");
         }catch(error) {
@@ -47,7 +49,7 @@ function CrearVehiculo(){
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>ID</label>
-                    <input type="text" className="form-control" value={vehiculo_id} onChange={(e) => setVehiculo(e.target.value)}></input>
+                    <input type="number" className="form-control" value={vehiculo_id} onChange={(e) => setVehiculo(e.target.value)}></input>
                 </div>
                 <div className="form-group">
                     <label>MARCA</label>
@@ -62,8 +64,16 @@ function CrearVehiculo(){
                     <input type="text" className="form-control" value={anio} onChange={(e) => setAnio(e.target.value)}></input>
                 </div>
                 <div className="form-group">
-                    <label>PRECIO</label>
-                    <input type="text" className="form-control" value={precio_por_dia} onChange={(e) => setPrecio(e.target.value)}></input>
+                    <label>PRECIO </label>
+                    <input type="number" step="0.01" className="form-control" value={precio_por_dia} onChange={(e) =>setPrecio(e.target.value)}></input>
+                </div>
+                <div className="mb-">
+                <label htmlFor="disponibilidad" className="form-label"> DISPONIBILIDAD</label>
+                <select className="form-select" id="disponibilidad" value={disponibilidad} onChange={(e) => setDisponibilidad(e.target.value)}>
+                    <option value="disponible">Disponible</option>
+                    <option value="en uso">En uso</option>
+                    <option value="en mantenimiento">En mantenimiento</option>
+                </select>
                 </div>
                 <button type="submit" className="btn btn-primary">Crear Vehiculo</button>
             </form>

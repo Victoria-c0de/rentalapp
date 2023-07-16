@@ -41,18 +41,20 @@ function ListaVehiculos() {
                 <th>MODELO</th>
                 <th>AÑO</th>
                 <th>PRECIO POR DIA</th>
+                <th>DISPONIBILIDAD</th>
                 <th>OPCIONES</th>
             </tr>
             </thead>
             <tbody>
             {vehiculos.map((vehiculo) => (
                 <tr key={vehiculo.id}>
-                    <td>{vehiculo.imagen}</td>
                     <td>{vehiculo.id}</td>
+                    <td>{vehiculo.imagen}</td>
                     <td>{vehiculo.marca}</td>
                     <td>{vehiculo.modelo}</td>
                     <td>{vehiculo.anio}</td>
                     <td>{vehiculo.precio_por_dia}</td>
+                    <td>{vehiculo.disponibilidad}</td>
                     <td>
                     <Link to={`/vehiculos/actualizar/${vehiculo.id}`} className="btn btn-info">Editar</Link>
                     <Link to={`/vehiculos/eliminar/${vehiculo.id}`} className="btn btn-secondary">Eliminar</Link>
