@@ -1,8 +1,7 @@
 import React , {useEffect,useState} from "react";
 import axios from "axios";
 function ListaReservas(){
-    const [reservas, setReserva] = useState([]);
-
+    const [reservas, setReserva] = useState([]);    
     useEffect(() => {
       obtenerReservas();
     }, []);

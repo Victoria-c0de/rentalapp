@@ -6,29 +6,30 @@ function CrearCliente(){
     const [cliente_id,setClienteID] = useState("");
     const [nombre,setNombre] = useState("");
     const [apellido,setApellido] = useState("");
-    const [email,setEmail] = useState("");
+    const [direccion,setDireccion] = useState("");
     const [telefono,setTelefono] = useState("");
+    const [email,setEmail] = useState("");
     const navigate = useNavigate();
 
     //enviar los datos de un formulario 
     //configuracion de fecha
     const onSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const fecha_registro = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        await axios.post('http://localhost:3000/api/cliente', {
-            cliente_id,
-            nombre,
-            apellido,
-            email,
-            telefono,
-            fecha_registro
-        });
-        alert("Se ha creado el cliente correctamente");
-    }catch(error) {
-        console.log(error);
-    }
-    };
+        e.preventDefault();
+        try {
+            await axios.post('http://localhost:3000/api/cliente', {
+                cliente_id,
+                nombre,
+                apellido,
+                direccion,
+                telefono,
+                email,
+            });
+            alert("Se ha creado el cliente correctamente");
+        }catch(error) {
+            console.log(error);
+        }
+        };
+
     return (
         <div className="container">
             <h1>Crear Cliente</h1>
@@ -36,7 +37,7 @@ function CrearCliente(){
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>RUT</label>
-                    <input type="text" className="form-control" value={cliente_id} onChange={(e) => setClienteID(e.target.value)}></input>
+                    <input type="number" className="form-control" value={cliente_id} onChange={(e) => setClienteID(e.target.value)}></input>
                 </div>
                 <div className="form-group">
                     <label>NOMBRES</label>
@@ -47,12 +48,16 @@ function CrearCliente(){
                     <input type="text" className="form-control" value={apellido} onChange={(e) => setApellido(e.target.value)}></input>
                 </div>
                 <div className="form-group">
-                    <label>EMAIL</label>
-                    <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                    <label>DIRECCION</label>
+                    <input type="text" className="form-control" value={direccion} onChange={(e) => setDireccion(e.target.value)}></input>
                 </div>
                 <div className="form-group">
                     <label>TELEFONO</label>
                     <input type="text" className="form-control" value={telefono} onChange={(e) => setTelefono(e.target.value)}></input>
+                </div>
+                <div className="form-group">
+                    <label>EMAIL</label>
+                    <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                 </div>
                 <button type="submit" className="btn btn-primary">Crear Cliente</button>
             </form>

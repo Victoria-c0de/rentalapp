@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function CrearVehiculo(){
     const [vehiculo_id, setVehiculo] = useState("");
@@ -9,6 +10,7 @@ function CrearVehiculo(){
     const [precio_por_dia, setPrecio] = useState("");
     const [disponibilidad, setDisponibilidad] = useState("");
     const [imagenVehiculo, setImagenVehiculo] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const obtenerImagenVehiculo = async () => {
@@ -37,10 +39,11 @@ function CrearVehiculo(){
                 disponibilidad
             });
             alert("Se ha creado el vehículo correctamente");
+            navigate("/vehiculos");
         }catch(error) {
             console.log(error);
         }
-    };
+        };
 
     return (
         <div className="container">

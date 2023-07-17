@@ -1,7 +1,7 @@
 import React , {useEffect,useState} from "react";
 import axios from "axios";
 function ListaVehiculos(){
-    const [vehiculos,setVehiculos] = useState([]);
+    const [gestionVehiculos,setGestionV] = useState([]);
 
     useEffect(() => {
         obtenerVehiculos();
@@ -9,15 +9,17 @@ function ListaVehiculos(){
     
     const obtenerVehiculos = async () => {
         try {
-            const query = `SELECT vehiculo.vehiculo_id, vehiculo.marca, vehiculo.modelo, vehiculo.anio, vehiculo.precio_por_dia, vehiculo.disponibilidad, imagenes.ruta
-            FROM vehiculo
-            LEFT JOIN imagenes ON vehiculo.vehiculo_id = imagenes.vehiculo_id`;
+            const query = `SELECT r.reserva_id, v.marca, v.precio_por_dia, r.fecha_inicio, r.fecha_fin, CONCAT(c.nombre, ' ', c.apellido) AS nombre_cliente, v.disponibilidad, i.ruta AS ruta_imagen
+            FROM reserva r
+            INNER JOIN vehiculo v ON r.vehiculo_id = v.vehiculo_id
+            INNER JOIN cliente c ON r.cliente_id = c.cliente_id
+            LEFT JOIN imagenes i ON v.vehiculo_id = i.vehiculo_id`;
             
-        const response = await axios.post('http://localhost:3000/api/dynamic', {
+        const response = await axios.post('http://localhost:3000/dynamic', {
             query
         });
 
-        setVehiculos(response.data);
+        setGestionV(response.data);
         } catch (error) {
         console.log(error);
         }
@@ -40,7 +42,7 @@ function ListaVehiculos(){
                 </tr>
                 </thead>
                 <tbody>
-                    {vehiculos.map((vehiculo) => (
+                    {gestionVehiculos.map((vehiculo) => (
                         <tr key={vehiculo.id}>
                         <td>{vehiculo.id}</td>
                         <td><img src={vehiculo.ruta} alt={vehiculo.marca} /></td>

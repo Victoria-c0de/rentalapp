@@ -4,40 +4,35 @@ import {useParams,useNavigate} from "react-router-dom";
 
 function ActualizarVehiculo(){
     const {id} = useParams();
-    const navigate = useNavigate();
     const [vehiculo_id, setVehiculoID] = useState("");
     const [marca, setMarca] = useState("");
-    const[modelo, setModelo] = useState("");
-    const[anio, setAnio] = useState("");
-    const[precio_por_dia, setPrecio] = useState("");
+    const [modelo, setModelo] = useState("");
+    const [anio, setAnio] = useState("");
+    const [precio_por_dia, setPrecio] = useState("");
     const [disponibilidad, setDisponibilidad] = useState("");
     const [imagenVehiculo, setImagenVehiculo] = useState(null);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+      obtenerDatosVehiculo();
+    }, []);
     const obtenerDatosVehiculo = async () => {
-        try {
-            const response = await axios.get(`http://localhost:3000/api/vehiculo/${id}`);
-            const vehiculo = response.data;
-            setVehiculoID(vehiculo.vehiculo_id);
-            setMarca(vehiculo.marca);
-            setModelo(vehiculo.modelo);
-            setAnio(vehiculo.anio);
-            setPrecio(vehiculo.precio_por_dia);
-            setDisponibilidad(vehiculo.disponibilidad);
-            setImagenVehiculo(vehiculo.imagenVehiculo);
-        } catch (error) {
-            console.log(error);
-        }
+        const response = await axios.get(`http://localhost:3000/api/vehiculo/${id}`);
+        const vehiculo = response.data[0];
+        setVehiculoID(vehiculo.vehiculo_id);
+        setMarca(vehiculo.marca);
+        setModelo(vehiculo.modelo);
+        setAnio(vehiculo.anio);
+        setPrecio(vehiculo.precio_por_dia);
+        setDisponibilidad(vehiculo.disponibilidad);
+        setImagenVehiculo(vehiculo.imagenVehiculo);
     };
   
-    useEffect(() => {
-        obtenerDatosVehiculo();
-      }, []);
-
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
             const vehiculoActualizado = { marca, modelo, anio, precio_por_dia, disponibilidad};
-            await axios.put(`http://localhost:3000/api/vehiculo/${id}`, vehiculoActualizado);
+            await axios.patch(`http://localhost:3000/api/vehiculo/${id}`, vehiculoActualizado);
             navigate("/vehiculos");
         }catch(error) {
             console.log(error);

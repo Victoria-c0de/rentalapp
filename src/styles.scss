@@ -1,7 +1,7 @@
 body {
     background: linear-gradient(141deg, #9fb8ad 0%, #187c89 51%, #2d3a3f 75%);
     font-family: Noto Sans, Helvetica, sans-serif;
-    color: #666;
+    color: #fff;
     letter-spacing: 1px;
     padding: 10px;
     min-height: 100vh;
@@ -80,7 +80,7 @@ h2 {
 }
 
 .form {
-    width: 60%;
+    width: 100%;
     float: left;
     margin-bottom: 30px;
 }
@@ -195,28 +195,4 @@ button {
     color: #0e1b1e;
     font-size: 25px;
     margin-left: 20px;
-}
-
-
-@media screen and (max-width: 400px) {
-    h1 {
-        font-size: 30px;
-    }
-
-    header {
-        .links {
-            a {
-                font-size: 1.2rem;
-            }
-
-            .link:link,
-            .link:visited {
-                margin: unset;
-            }
-        }
-    }
-
-    .main-form {
-        width: 100%;
-    }
 }

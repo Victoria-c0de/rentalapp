@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import {useParams,useNavigate} from "react-router-dom";
 import { Button } from "react-bootstrap";
-
+import { useState,useEffect } from "react";
 function EliminarVehiculo() {
     let {id} = useParams();
     const navigate = useNavigate();
@@ -18,9 +18,8 @@ function EliminarVehiculo() {
             setVehiculo(response.data[0]);
         } catch (error) {
          console.log(error);
-        }
+        };
     };
-
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -33,14 +32,14 @@ function EliminarVehiculo() {
     };
 
     return (
-        <div className="container">
-            <h1>¿Desea eliminar al vehiculo ? </h1>
-            <h3>{vehiculo && vehiculo.marca} {vehiculo && vehiculo.modelo}</h3>
-            <Button variant="danger" onClick={onSubmit}> Eliminar
-            
-            </Button>
-        </div>
-        
+    <div className="container">
+        <h1>¿Desea eliminar al vehiculo?</h1>
+        <h3>{vehiculo && vehiculo.marca} {vehiculo && vehiculo.modelo}</h3>
+        <p>Año: {vehiculo && vehiculo.anio}</p>
+        <p>Precio por día: {vehiculo && vehiculo.precio_por_dia}</p>
+        <p>Disponibilidad: {vehiculo && vehiculo.disponibilidad}</p>
+        <Button variant="danger" onClick={onSubmit}>Eliminar</Button>
+    </div>
     );
 }
 
